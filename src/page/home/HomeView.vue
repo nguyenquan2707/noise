@@ -28,14 +28,14 @@
             </div>
         </div>
 
-        <div>
+        <!-- <div>
             <v-col>
                 列表
             </v-col>
             <v-col class="bg-img-2">
 
             </v-col>
-        </div>
+        </div> -->
     </div>
 </template>
 

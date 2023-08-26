@@ -1,19 +1,19 @@
 .no-select {
     user-select: none;
 }
+
 .bg-img-1 {
     background-size: cover;
-    background-image: url('@/assets/image/1.png');
+    background-image: url('@/assets/image/6.jpg');
 }
+
 .bg-img-2 {
     background-size: cover;
-    background-image: url('@/assets/image/2.png');
+    background-image: url('@/assets/image/7.jpg');
 }
+
 .bg-color-hover:hover {
     background-color: #c2e7ff;
-}
-.bg-white {
-    background-color: #fff;
 }
 
 .avatar {
@@ -22,22 +22,18 @@
     }
 }
 
-.user-card_bg {
-    background: linear-gradient(to bottom, #EEEEEE 0, #EEEEEE 25%, white calc(25% + 1px), white 100%);
-}
-
 .user-card {
     position: fixed;
-    left: 88px;
-    top: 0px;
+    right: 60px;
+    top: 30px;
     width: 250px;
-    height: 345px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 99999999;
     .user-card-name {
         min-height: 24px;
-        margin-top: 25px;
+        margin-top: 10px;
         font-weight: bold;
     }
 }

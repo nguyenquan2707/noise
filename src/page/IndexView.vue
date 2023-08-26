@@ -1,20 +1,24 @@
 <template>
-    <v-layout>
-        <v-navigation-drawer rail-width="88" class="no-select" :color="colorSet.nav_bg" permanent rail>
+    <v-layout v-resize="onResize">
+        <v-app-bar class="pl-2" density="comfortable" elevation="0">
+            <template #prepend>
+                <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
+                <v-app-bar-title class="ml-5">
+                    <v-btn prepend-icon="mdi mdi-material-design">NOISE</v-btn>
+                </v-app-bar-title>
+            </template>
+            <template #append>
+                <v-avatar class="my-2 user-card-avatar avatar included" :image="user.avatar" @click="show=!show" >
+                    <v-icon size="40" icon="mdi-account-circle"></v-icon>
+                </v-avatar>
+                <v-avatar size="14" style="position:absolute;right:12px;top:34px;" :color="user.token ? 'green' : 'grey'">
+                    <v-icon size="12" color="white" :icon="user.token ? 'mdi mdi-sync' : 'mdi mdi-sync-off'"></v-icon>
+                </v-avatar>
+            </template>
+        </v-app-bar>
+
+        <v-navigation-drawer v-model="drawer" rail-width="90" style="border:none" class="no-select" :disable-resize-watcher="false" permanent rail>
             <v-row class="ma-0">
-                <v-col class="text-center pa-0">
-                    <v-avatar
-                        class="my-2 user-card-avatar avatar included"
-                        :image="user.avatar"
-                        @click="show=!show"
-                    >
-                        <v-icon size="40" icon="mdi-account-circle"></v-icon>
-                    </v-avatar>
-                    <v-avatar size="14" style="position:absolute;right:22px;top:32px;" :color="user.token ? 'green' : 'grey'">
-                        <v-icon size="12" color="white" :icon="user.token ? 'mdi mdi-sync' : 'mdi mdi-sync-off'"></v-icon>
-                    </v-avatar>
-                </v-col>
-                <v-divider></v-divider>
                 <v-col v-for="item in items" :key="item.tab" class="py-2">
                     <div @click="activeTab(item)" class="d-flex flex-column align-center text-decoration-none">
                         <v-btn
@@ -31,62 +35,59 @@
                     </div>
                 </v-col>
             </v-row>
-
-            <v-card v-show="show" class="no-select user-card user-card_bg" v-click-outside="{ handler: onClickOutside, include }">
-                <div class="user-card-name">{{ user.name}}</div>
-
-                <div style="position:relative;">
-                    <v-avatar
-                        size="60"
-                        class="my-2 user-card-avatar included"
-                        :image="user.avatar"
-                    >
-                        <v-icon size="70" icon="mdi-account-circle"></v-icon>
-                    </v-avatar>
-                    <v-avatar size="16" style="position:absolute;right:0px;top:50px;" :color="user.token ? 'green' : 'grey'">
-                        <v-icon size="14" color="white" :icon="user.token ? 'mdi mdi-sync' : 'mdi mdi-sync-off'"></v-icon>
-                    </v-avatar>
-                </div>
-
-                <div class="pa-0 text-center d-flex flex-column text-body-2">
-                    <template v-if="user.token">
-                        <v-chip v-if="user.phone" class="mt-2" label text-color="white">
-                            <v-icon start size="14" icon="mdi mdi-phone"></v-icon>
-                            {{ user.phone }}
-                        </v-chip>
-                        <v-chip v-if="user.email" class="mt-2" label text-color="white">
-                            <v-icon start size="16" icon="mdi mdi-email"></v-icon>
-                            {{ user.email }}
-                        </v-chip>
-                    </template>
-                    <span v-else>未登录</span>
-                </div>
-
-                <v-spacer></v-spacer>
-
-                <v-card v-if="user.token" variant="text" class="w-100">
-                    <v-list density="compact">
-                        <v-list-item v-for="(item, i) in cardItems" :key="i" @click="onClick(item.action)">
-                            <template v-slot:prepend>
-                                <v-icon size="20" :icon="item.icon" class="mr-3"></v-icon>
-                            </template>
-                            <v-list-item-title class="text-body-2">{{ item.text }}</v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                </v-card>
-                
-                <template v-else>
-                    <v-card variant="text">
-                        <p class="text-body-2 text-grey-darken-3">登录后您将可以浏览更多内容</p>
-                        <v-btn block class="my-4" size="small" variant="tonal" color="" @click="toLogin">立即登录</v-btn>
-                    </v-card>
-                    <v-spacer></v-spacer>
-                </template>
-            </v-card>
         </v-navigation-drawer>
 
+        <v-card v-show="show" class="no-select user-card" v-click-outside="{ handler: onClickOutside, include }">
+            <div class="user-card-name">{{ user.name}}</div>
+
+            <div style="position:relative;">
+                <v-avatar size="60" class="my-2 user-card-avatar included" :image="user.avatar" >
+                    <v-icon size="70" icon="mdi-account-circle"></v-icon>
+                </v-avatar>
+                <v-avatar size="16" style="position:absolute;right:0px;top:50px;" :color="user.token ? 'green' : 'grey'">
+                    <v-icon size="14" color="white" :icon="user.token ? 'mdi mdi-sync' : 'mdi mdi-sync-off'"></v-icon>
+                </v-avatar>
+            </div>
+
+            <div class="pa-0 text-center d-flex flex-column text-body-2">
+                <template v-if="user.token">
+                    <v-chip v-if="user.phone" class="mt-2" label text-color="white">
+                        <v-icon start size="14" icon="mdi mdi-phone"></v-icon>
+                        {{ user.phone }}
+                    </v-chip>
+                    <v-chip v-if="user.email" class="mt-2" label text-color="white">
+                        <v-icon start size="16" icon="mdi mdi-email"></v-icon>
+                        {{ user.email }}
+                    </v-chip>
+                </template>
+                <span v-else>未登录</span>
+            </div>
+
+            <v-spacer></v-spacer>
+
+            <v-card v-if="user.token" variant="text" class="w-100 mt-8">
+                <v-divider></v-divider>
+                <v-list density="compact">
+                    <v-list-item v-for="(item, i) in cardItems" :key="i" @click="onClick(item.action)">
+                        <v-list-item-title class="text-body-2">
+                            <v-icon size="20" class="mr-2" :icon="item.icon"></v-icon>
+                            {{ item.text }}
+                        </v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-card>
+            
+            <template v-else>
+                <v-card variant="text">
+                    <p class="text-body-2 text-grey-darken-3">登录后您将可以浏览更多内容</p>
+                    <v-btn block class="my-4" size="small" variant="tonal" color="" @click="toLogin">立即登录</v-btn>
+                </v-card>
+                <v-spacer></v-spacer>
+            </template>
+        </v-card>
+
         <v-main>
-            <div id="app_main" class="pa-3">
+            <div class="px-3 py-1">
                 <RouterView />
             </div>
         </v-main>
@@ -97,13 +98,11 @@
 import { useTheme } from 'vuetify'
 import { useUserStore } from '@/stores/userStore'
 
-
 export default {
     data: () => ({
         show: false,
         active: 'Home',
-        drawer: false,
-        bar: false,
+        drawer: true,
         items: [
             { tab: 'Home', icon: 'mdi mdi-material-design', url: '/home' },
             { tab: 'Music', icon: 'mdi mdi-music-box-multiple', url: '/music' },
@@ -113,7 +112,7 @@ export default {
         ],
         cardItems: [
             { text: '修改个人信息', action: 'info', icon: 'mdi mdi-square-edit-outline' },
-            { text: '修改登录密码', action: 'password', icon: 'mdi mdi-lock' },
+            { text: '修改登录密码', action: 'password', icon: 'mdi mdi-key-change' },
             { text: '退出登录', action:'logout', icon: 'mdi mdi-logout-variant' },
         ],
     }),
@@ -181,10 +180,8 @@ export default {
         },
         onResize() {
             if (window.innerWidth < 960) {
-                this.bar = true
                 this.drawer = false
             } else {
-                this.bar = false
                 this.drawer = true
             }
         }

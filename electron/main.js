@@ -20,7 +20,7 @@ if (!app.requestSingleInstanceLock()) {
 
 let win = null
 
-process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = true
 
 const preload = join(__dirname, './preload.js')
 const url = process.env.VITE_DEV_SERVER_URL
