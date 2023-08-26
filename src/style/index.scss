@@ -1,2 +1,7 @@
 @import './base.scss';
 @import './dark.scss';
+
+:root {
+    --dark-bg-color: rgb(33, 33, 33);
+    --light-bg-blue: #eaf0f9;
+}

@@ -1,50 +1,104 @@
 <template>
-    <div class="home">
-        <div class="home-item bg-img-1 rounded-xl">
-            <div class="card-wrap px-14">
-                <div class="card">
-                    <div class="text-center text-h3 font-weight-bold">观音 · 听时</div>
-                    <div class="text-center text-h6 pt-6 pb-12 font-weight-regular">坂本龙一全球最大的作品回顾展</div>
-                    <div class="hero no-select">
-                        <v-sheet class="hero-item pa-6 rounded-xl h-100 bg-color-hover">
-                            <div class="text-h5 font-weight-bold">坂本龙一是谁？</div>
-                            <div>世界著名音乐家、电影配乐大师、世界著名音乐家</div>
-                        </v-sheet>
-                        <v-sheet v-ripple class="hero-item pa-6 rounded-xl h-100 bg-color-hover">
-                            <div class="text-h5 font-weight-bold">坂本龙一是谁？</div>
-                            <div>世界著名音乐家、电影配乐大师、社会活动家</div>
-                        </v-sheet>
-
-                        <v-sheet class="hero-item pa-6 rounded-xl h-100 bg-color-hover">
-                            <div class="text-h5 font-weight-bold">坂本龙一是谁？</div>
-                            <div>世界著名音乐家、电影配乐大师、社会活动家</div>
-                        </v-sheet>
-                        <v-sheet class="hero-item pa-6 rounded-xl h-100 bg-color-hover">
-                            <div class="text-h5 font-weight-bold">坂本龙一是谁？</div>
-                            <div>世界著名音乐家、电影配乐大师、社会活动家</div>
-                        </v-sheet>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- <div>
+    <v-container v-resize="onResize" fluid>
+        <v-row no-gutters class="bg-img-1 rounded-xl no-select">
             <v-col>
-                列表
-            </v-col>
-            <v-col class="bg-img-2">
+                <v-row no-gutters justify="center" class="text-h3 mt-10 font-weight-bold">
+                    观音 · 听时
+                </v-row>
 
+                <v-row no-gutters justify="center" class="text-h6 mt-10 pb-12 font-weight-regular">
+                    全球最大的坂本龙一作品回顾展
+                </v-row>
+
+                <template v-if="!isColum">
+                    <v-row no-gutters style="padding-bottom:164px;">
+                        <v-col>
+                            <v-row no-gutters justify="center">
+                                <v-col class="cover-width">
+                                    <v-sheet class="ma-2 px-6 py-5 cover-item">
+                                        <v-row no-gutters class="text-h6">坂本龙一是谁？</v-row>
+                                        <v-row no-gutters class="text-body-1">世界著名音乐家、电影配乐大师、世界著名音乐家</v-row>
+                                    </v-sheet>
+                                </v-col>
+                                
+                                <v-col class="cover-width">
+                                    <v-sheet class="ma-2 px-6 py-5 cover-item">
+                                        <v-row no-gutters class="text-h6">坂本龙一是谁？</v-row>
+                                        <v-row no-gutters class="text-body-1">世界著名音乐家、电影配乐大师、世界著名音乐家</v-row>
+                                    </v-sheet>
+                                </v-col>
+                            </v-row>
+                            <v-row no-gutters justify="center">
+                                <v-col class="cover-width">
+                                    <v-sheet class="ma-2 px-6 py-5 cover-item">
+                                        <v-row no-gutters class="text-h6">坂本龙一是谁？</v-row>
+                                        <v-row no-gutters class="text-body-1">世界著名音乐家、电影配乐大师、世界著名音乐家</v-row>
+                                    </v-sheet>
+                                </v-col>
+                                <v-col class="cover-width">
+                                    <v-sheet class="ma-2 px-6 py-5 cover-item">
+                                        <v-row no-gutters class="text-h6">坂本龙一是谁？</v-row>
+                                        <v-row no-gutters class="text-body-1">世界著名音乐家、电影配乐大师、世界著名音乐家</v-row>
+                                    </v-sheet>
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                    </v-row>
+                </template>
             </v-col>
-        </div> -->
-    </div>
+        </v-row>
+
+        <template v-if="isColum">
+            <v-row no-gutters class="mt-2">
+                <v-col>
+                    <v-sheet class="px-6 py-5 cover-item bg-colum">
+                        <v-row no-gutters class="text-h6">坂本龙一是谁？</v-row>
+                        <v-row no-gutters class="text-body-1">世界著名音乐家、电影配乐大师、世界著名音乐家</v-row>
+                    </v-sheet>
+                </v-col>
+            </v-row>
+            <v-row no-gutters class="mt-2">
+                <v-col>
+                    <v-sheet class="px-6 py-5 cover-item bg-colum">
+                        <v-row no-gutters class="text-h6">坂本龙一是谁？</v-row>
+                        <v-row no-gutters class="text-body-1">世界著名音乐家、电影配乐大师、世界著名音乐家</v-row>
+                    </v-sheet>
+                </v-col>
+            </v-row>
+            <v-row no-gutters class="mt-2">
+                <v-col>
+                    <v-sheet class="px-6 py-5 cover-item bg-colum">
+                        <v-row no-gutters class="text-h6">坂本龙一是谁？</v-row>
+                        <v-row no-gutters class="text-body-1">世界著名音乐家、电影配乐大师、世界著名音乐家</v-row>
+                    </v-sheet>
+                </v-col>
+            </v-row>
+            <v-row no-gutters class="mt-2">
+                <v-col>
+                    <v-sheet class="px-6 py-5 cover-item bg-colum">
+                        <v-row no-gutters class="text-h6">坂本龙一是谁？</v-row>
+                        <v-row no-gutters class="text-body-1">世界著名音乐家、电影配乐大师、世界著名音乐家</v-row>
+                    </v-sheet>
+                </v-col>
+            </v-row>
+        </template>
+
+        <v-row>
+            <v-col>面熟</v-col>
+            <v-col class="bg-img-8"></v-col>
+        </v-row>
+
+    </v-container>
 </template>
 
 <script>
+
 export default {
     data() {
         return {
             dialog: false,
             fileList: [],
+            isColum: false,
         }
     },
 
@@ -57,40 +111,10 @@ export default {
             const format = new FormData()
             format.append('file', file.file)
             this.$http.post('/user/setAvatar', format)
+        },
+        onResize() {
+            this.isColum = window.innerWidth < 1160
         }
     }
 }
 </script>
-
-<style scoped>
-.card-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 85vh;
-    min-height: 30rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-.card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-.hero {
-    width: 100%;
-    margin: 0 auto;
-    display: grid;
-    grid-gap: 8px;
-    gap: 8px;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-}
-.hero-item {
-    grid-column: span 3;
-    display: grid;
-    grid-gap: 8px;
-}
-</style>

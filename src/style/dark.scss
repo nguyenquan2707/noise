@@ -6,4 +6,21 @@
         background-size: cover;
         background-image: url('@/assets/image/7.jpg');
     }
+    .cover-item {
+        border-radius: 1.5rem;
+        border: 1px solid var(--dark-bg-color);
+        &:hover {
+            background-color: #073550;
+            border: 1px solid #073550;
+            cursor: pointer;
+        }
+        &:active {
+            border-radius: 2.5rem;
+            border: 1px solid white;
+        }
+    }
+
+    .bg-colum {
+        background-color: var(--dark-bg-color);
+    }
 }

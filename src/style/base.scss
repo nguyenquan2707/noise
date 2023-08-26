@@ -7,13 +7,26 @@
     background-image: url('@/assets/image/6.jpg');
 }
 
-.bg-img-2 {
-    background-size: cover;
-    background-image: url('@/assets/image/7.jpg');
+.cover-item {
+    border-radius: 1.5rem;
+    border: 1px solid white;
+    &:hover {
+        background-color: #c2e7ff;
+        border: 1px solid #c2e7ff;
+        cursor: pointer;
+    }
+    &:active {
+        border-radius: 2.5rem;
+        border: 1px solid black;
+    }
 }
 
-.bg-color-hover:hover {
-    background-color: #c2e7ff;
+.cover-width {
+    max-width: 500px;
+}
+
+.bg-colum {
+    background-color: var(--light-bg-blue);
 }
 
 .avatar {

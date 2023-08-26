@@ -1,5 +1,5 @@
 <template>
-    <v-layout v-resize="onResize">
+    <v-layout>
         <v-app-bar class="pl-2" density="comfortable" elevation="0">
             <template #prepend>
                 <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
@@ -8,11 +8,11 @@
                 </v-app-bar-title>
             </template>
             <template #append>
-                <v-avatar class="my-2 avatar included" :image="user.avatar" @click="show=!show" >
+                <v-avatar class="my-2 avatar included" :image="userStore.avatar" @click="show=!show" >
                     <v-icon size="40" icon="mdi-account-circle"></v-icon>
                 </v-avatar>
-                <v-avatar size="14" style="position:absolute;right:12px;top:34px;" :color="user.token ? 'green' : 'grey'">
-                    <v-icon size="12" color="white" :icon="user.token ? 'mdi mdi-sync' : 'mdi mdi-sync-off'"></v-icon>
+                <v-avatar size="14" style="position:absolute;right:12px;top:34px;" :color="userStore.token ? 'green' : 'grey'">
+                    <v-icon size="12" color="white" :icon="userStore.token ? 'mdi mdi-sync' : 'mdi mdi-sync-off'"></v-icon>
                 </v-avatar>
             </template>
         </v-app-bar>
@@ -31,33 +31,33 @@
                             :icon="item.icon"
                             :color="colorSet.icon_color"
                         ></v-btn>
-                        <div class="mt-1 text-subtitle-2 font-weight-regular">{{ item.tab }}</div>
+                        <div class="mt-1 text-subtitle-2 font-weight-regular">{{ item.title }}</div>
                     </div>
                 </v-col>
             </v-row>
         </v-navigation-drawer>
 
         <v-card v-show="show" class="no-select user-card" v-click-outside="{ handler: onClickOutside, include }">
-            <div class="user-card-name">{{ user.name}}</div>
+            <div class="user-card-name">{{ userStore.name}}</div>
 
             <div style="position:relative;">
-                <v-avatar size="60" class="my-2 avatar included" :image="user.avatar" >
+                <v-avatar size="60" class="my-2 avatar included" :image="userStore.avatar" >
                     <v-icon size="70" icon="mdi-account-circle"></v-icon>
                 </v-avatar>
-                <v-avatar size="16" style="position:absolute;right:0px;top:50px;" :color="user.token ? 'green' : 'grey'">
-                    <v-icon size="14" color="white" :icon="user.token ? 'mdi mdi-sync' : 'mdi mdi-sync-off'"></v-icon>
+                <v-avatar size="16" style="position:absolute;right:0px;top:50px;" :color="userStore.token ? 'green' : 'grey'">
+                    <v-icon size="14" color="white" :icon="userStore.token ? 'mdi mdi-sync' : 'mdi mdi-sync-off'"></v-icon>
                 </v-avatar>
             </div>
 
             <div class="pa-0 text-center d-flex flex-column text-body-2">
-                <template v-if="user.token">
-                    <v-chip v-if="user.phone" class="mt-2" label text-color="white">
+                <template v-if="userStore.token">
+                    <v-chip v-if="userStore.phone" class="mt-2" label text-color="white">
                         <v-icon start size="14" icon="mdi mdi-phone"></v-icon>
-                        {{ user.phone }}
+                        {{ userStore.phone }}
                     </v-chip>
-                    <v-chip v-if="user.email" class="mt-2" label text-color="white">
+                    <v-chip v-if="userStore.email" class="mt-2" label text-color="white">
                         <v-icon start size="16" icon="mdi mdi-email"></v-icon>
-                        {{ user.email }}
+                        {{ userStore.email }}
                     </v-chip>
                 </template>
                 <span v-else>未登录</span>
@@ -65,7 +65,7 @@
 
             <v-spacer></v-spacer>
 
-            <v-card v-if="user.token" variant="text" class="w-100 mt-8">
+            <v-card v-if="userStore.token" variant="text" class="w-100 mt-8">
                 <v-divider></v-divider>
                 <v-list density="compact">
                     <v-list-item v-for="(item, i) in cardItems" :key="i" @click="onClick(item.action)">
@@ -87,9 +87,7 @@
         </v-card>
 
         <v-main>
-            <div class="px-3 py-1">
-                <RouterView />
-            </div>
+            <RouterView />
         </v-main>
     </v-layout>
 </template>
@@ -97,6 +95,7 @@
 <script>
 import { useTheme } from 'vuetify'
 import { useUserStore } from '@/stores/userStore'
+import { useAppStore } from '@/stores/appStore'
 
 export default {
     data: () => ({
@@ -104,11 +103,11 @@ export default {
         active: 'Home',
         drawer: true,
         items: [
-            { tab: 'Home', icon: 'mdi mdi-material-design', url: '/home' },
-            { tab: 'Music', icon: 'mdi mdi-music-box-multiple', url: '/music' },
-            { tab: 'Video', icon: 'mdi mdi-video-box', url: '/video' },
-            { tab: 'User', icon: 'mdi mdi-account-multiple', url: '/user' },
-            { tab: 'Chat', icon: 'mdi mdi-forum', url: '/chat' },
+            { tab: 'Home', title: '首页', icon: 'mdi mdi-material-design', url: '/home' },
+            { tab: 'Music', title: '音乐', icon: 'mdi mdi-music-box-multiple', url: '/music' },
+            { tab: 'Video', title: '视频', icon: 'mdi mdi-video-box', url: '/video' },
+            { tab: 'User', title: '用户', icon: 'mdi mdi-account-multiple', url: '/user' },
+            { tab: 'Chat', title: '聊天', icon: 'mdi mdi-forum', url: '/chat' },
         ],
         cardItems: [
             { text: '修改个人信息', action: 'info', icon: 'mdi mdi-square-edit-outline' },
@@ -127,7 +126,16 @@ export default {
                 active_bg: 'bg-blue-lighten-4',
             }
         },
-        user: () => useUserStore(),
+
+        userStore: () => useUserStore(),
+
+        appStore: () => useAppStore(),
+    },
+
+    watch: {
+        'appStore.isMobile'(newVal) {
+            this.drawer = !newVal
+        }
     },
 
     created() {
@@ -178,13 +186,6 @@ export default {
                     })()
             }
         },
-        onResize() {
-            if (window.innerWidth < 960) {
-                this.drawer = false
-            } else {
-                this.drawer = true
-            }
-        }
     }
 }
 </script>
