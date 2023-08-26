@@ -4,11 +4,11 @@
             <template #prepend>
                 <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
                 <v-app-bar-title class="ml-5">
-                    <v-btn prepend-icon="mdi mdi-material-design">NOISE</v-btn>
+                    <v-btn prepend-icon="mdi mdi-material-design" @click="home">NOISE</v-btn>
                 </v-app-bar-title>
             </template>
             <template #append>
-                <v-avatar class="my-2 user-card-avatar avatar included" :image="user.avatar" @click="show=!show" >
+                <v-avatar class="my-2 avatar included" :image="user.avatar" @click="show=!show" >
                     <v-icon size="40" icon="mdi-account-circle"></v-icon>
                 </v-avatar>
                 <v-avatar size="14" style="position:absolute;right:12px;top:34px;" :color="user.token ? 'green' : 'grey'">
@@ -41,7 +41,7 @@
             <div class="user-card-name">{{ user.name}}</div>
 
             <div style="position:relative;">
-                <v-avatar size="60" class="my-2 user-card-avatar included" :image="user.avatar" >
+                <v-avatar size="60" class="my-2 avatar included" :image="user.avatar" >
                     <v-icon size="70" icon="mdi-account-circle"></v-icon>
                 </v-avatar>
                 <v-avatar size="16" style="position:absolute;right:0px;top:50px;" :color="user.token ? 'green' : 'grey'">
@@ -121,13 +121,9 @@ export default {
         colorSet() {
             const theme = useTheme()
             if (theme.global.name.value === 'dark') return {
-                icon_color: 'grey-lighten-3',
-                nav_bg: '#28292a',
                 active_bg: 'bg-light-blue-darken-4',
             }
             return {
-                icon_color: 'grey-darken-3',
-                nav_bg: '#f8fafd',
                 active_bg: 'bg-blue-lighten-4',
             }
         },
@@ -148,6 +144,10 @@ export default {
         },
         onClickOutside() {
             this.show = false
+        },
+        home() {
+            this.$router.replace('/')
+            this.active = 'Home'
         },
         include () {
             // 把含有 included 类的元素排除在外
