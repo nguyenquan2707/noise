@@ -60,7 +60,7 @@
                     </div>
                 </v-sheet>
             </v-col>
-            <v-col :cols="isMobile ? 12 : 6" class="pt-2">
+            <v-col v-if="!isMobile" cols="6" class="pt-2">
                 <div :class="activeImg" class="bg-img-2 rounded-xl"></div>
             </v-col>
         </v-row>
