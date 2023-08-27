@@ -19,6 +19,7 @@ function onResize() {
     const isMobile = window.innerWidth < 960
     if (appStore.isMobile !== isMobile) {
         appStore.isMobile = isMobile
+        window.isMobile = isMobile
     }
 }
 

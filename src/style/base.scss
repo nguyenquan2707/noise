@@ -34,6 +34,11 @@
     height: 100vh;
 }
 
+.max-hv-100 {
+    max-height: 100hv;
+    overflow-y: hidden;
+}
+
 .cover-item {
     border-radius: 1.5rem;
     border: 1px solid white;

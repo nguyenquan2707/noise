@@ -2,7 +2,7 @@
     <v-container v-resize="onResize" fluid fill-height>
         <v-row no-gutters class="bg-img-1 rounded-xl no-select" align="center" :style="isColum ? '' : 'min-height:760px;'">
             <v-col cols="12">
-                <v-row no-gutters justify="center" class="text-h3 font-weight-bold"> 观音 · 听时 </v-row>
+                <v-row no-gutters justify="center" class="text-h3 mt-10 font-weight-bold"> 观音 · 听时 </v-row>
 
                 <v-row no-gutters justify="center" class="text-h6 my-10 font-weight-regular"> 全球最大的坂本龙一作品回顾展 </v-row>
 
@@ -20,9 +20,9 @@
         </v-row>
 
         <template v-if="isColum">
-            <v-row v-for="i in coverList" :key="i.index" no-gutters class="mt-2">
+            <v-row v-for="i,index in coverList" :key="index" no-gutters class="mt-2 no-select">
                 <v-col>
-                    <v-sheet class="px-6 py-5 cover-item bg-colum">
+                    <v-sheet class="px-6 py-5 cover-item bg-colum" @click="scrollToA(index)">
                         <v-row no-gutters class="text-h6">{{ i.title }}</v-row>
                         <v-row no-gutters class="text-body-1">{{ i.desc }}</v-row>
                     </v-sheet>
@@ -31,7 +31,7 @@
         </template>
 
         <v-row no-gutters v-scroll="onScroll">
-            <v-col cols="6" class="pt-2">
+            <v-col :cols="isMobile ? 12 : 6" class="pt-2">
                 <v-sheet ref="cover_1" class="mr-4 mt-0 px-4 rounded-t-xl d-flex flex-column justify-space-around hv-100">
                     <div>
                         <h1 class="text-center">{{ config.PARA[0].title }}</h1>
@@ -52,7 +52,7 @@
                         <p class="mt-4">{{ config.PARA[2].desc }}</p>
                     </div>
                 </v-sheet>
-                
+
                 <v-sheet ref="cover_4" class="mr-4 px-4 rounded-b-xl d-flex flex-column justify-space-around hv-100">
                     <div>
                         <h1 class="text-center">{{ config.PARA[3].title }}</h1>
@@ -60,7 +60,7 @@
                     </div>
                 </v-sheet>
             </v-col>
-            <v-col cols="6" class="pt-2">
+            <v-col :cols="isMobile ? 12 : 6" class="pt-2">
                 <div :class="activeImg" class="bg-img-2 rounded-xl"></div>
             </v-col>
         </v-row>
@@ -78,7 +78,7 @@
 
                     <v-divider></v-divider>
 
-                    <div> {{ new Date().getFullYear() }} — <strong>Vuetify</strong> </div>
+                    <div> {{ new Date().getFullYear() }} — <strong>Noise</strong> </div>
                 </v-footer>
             </v-col>
         </v-row>
@@ -87,6 +87,7 @@
 
 <script>
 import config from '@/config'
+import { useAppStore } from '@/stores/appStore'
 
 export default {
     data() {
@@ -118,6 +119,12 @@ export default {
                 'mdi-linkedin',
                 'mdi-instagram',
             ],
+        }
+    },
+
+    computed: {
+        isMobile() {
+            return useAppStore().isMobile
         }
     },
 
@@ -167,9 +174,8 @@ export default {
             if (index === 3) {
                 offsetTop = this.$refs.cover_4.$el.offsetTop
             }
-            const top = offsetTop - 64
             window.scrollTo({
-                top,
+                top: offsetTop,
                 behavior: "smooth"
             })
         }
