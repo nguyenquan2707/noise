@@ -78,6 +78,11 @@ export default defineConfig(({ command }) => {
                     target: 'http://localhost/',
                     changeOrigin: true,
                 },
+                '/static': {
+                    target: 'http://localhost/',
+                    changeOrigin: true,
+                    rewrite:path => path.replace(/^\/static/, '')
+                },
             }
         },
 

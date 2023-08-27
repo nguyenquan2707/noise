@@ -1,6 +1,6 @@
 <template>
     <v-layout>
-        <v-app-bar class="pl-2" density="comfortable" elevation="0">
+        <v-app-bar class="px-3" density="comfortable" elevation="0">
             <template #prepend>
                 <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
                 <v-app-bar-title class="ml-5">
