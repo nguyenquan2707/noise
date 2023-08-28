@@ -107,6 +107,7 @@ export default {
             { tab: 'Music', title: '音乐', icon: 'mdi mdi-folder-music-outline', icon2: 'mdi mdi-folder-music', url: '/music' },
             { tab: 'Video', title: '视频', icon: 'mdi mdi-movie-open-outline', icon2: 'mdi mdi-movie-open', url: '/video' },
             { tab: 'Chat', title: '聊天', icon: 'mdi mdi-chat-processing-outline', icon2: 'mdi mdi-chat-processing', url: '/chat' },
+            { tab: 'Board', title: '黑板', icon: 'mdi mdi-keyboard-outline', icon2: 'mdi mdi-keyboard', url: '/board' },
         ],
         cardItems: [
             { text: '修改个人信息', action: 'info', icon: 'mdi mdi-square-edit-outline' },

@@ -76,6 +76,18 @@ const router = createRouter({
         },
 
         {
+            path: '/board',
+            component: IndexView,
+            children: [
+                {
+                    path: '',
+                    component: () => import('@/page/board/BoardView.vue'),
+                    meta: { requireAuth: true },
+                },
+            ]
+        },
+
+        {
             path: '/register',
             component: () => import('@/page/auth/RegisterView.vue')
         },
