@@ -19,7 +19,7 @@
 
         <v-navigation-drawer v-model="drawer" rail-width="90" style="border:none" class="no-select" :disable-resize-watcher="false" permanent rail>
             <v-row class="ma-0">
-                <v-col v-for="item in items" :key="item.tab" class="py-2">
+                <v-col v-for="item in navItems" :key="item.tab" class="py-2">
                     <div @click="activeTab(item)" class="d-flex flex-column align-center text-decoration-none">
                         <v-btn
                             :variant="active === item.tab ? 'tonal' : 'text'"
@@ -28,7 +28,7 @@
                             density="compact"
                             size="large"
                             rounded="xl"
-                            :icon="item.icon"
+                            :icon="active === item.tab ? item.icon2 : item.icon"
                             :color="colorSet.icon_color"
                         ></v-btn>
                         <div class="mt-1 text-subtitle-2 font-weight-regular">{{ item.title }}</div>
@@ -102,12 +102,11 @@ export default {
         show: false,
         active: 'Home',
         drawer: true,
-        items: [
-            { tab: 'Home', title: '首页', icon: 'mdi mdi-material-design', url: '/home' },
-            { tab: 'Music', title: '音乐', icon: 'mdi mdi-music-box-multiple', url: '/music' },
-            { tab: 'Video', title: '视频', icon: 'mdi mdi-video-box', url: '/video' },
-            { tab: 'User', title: '用户', icon: 'mdi mdi-account-multiple', url: '/user' },
-            { tab: 'Chat', title: '聊天', icon: 'mdi mdi-forum', url: '/chat' },
+        navItems: [
+            { tab: 'Home', title: '首页', icon: 'mdi mdi-material-design', icon2: 'mdi mdi-material-design', url: '/home' },
+            { tab: 'Music', title: '音乐', icon: 'mdi mdi-folder-music-outline', icon2: 'mdi mdi-folder-music', url: '/music' },
+            { tab: 'Video', title: '视频', icon: 'mdi mdi-movie-open-outline', icon2: 'mdi mdi-movie-open', url: '/video' },
+            { tab: 'Chat', title: '聊天', icon: 'mdi mdi-chat-processing-outline', icon2: 'mdi mdi-chat-processing', url: '/chat' },
         ],
         cardItems: [
             { text: '修改个人信息', action: 'info', icon: 'mdi mdi-square-edit-outline' },
@@ -140,7 +139,7 @@ export default {
 
     created() {
         const path = '/' + this.$route.path.split('/')[1]
-        const item = this.items.find(item => item.url === path)
+        const item = this.navItems.find(item => item.url === path)
         if (path) {
             this.active = item.tab
         }

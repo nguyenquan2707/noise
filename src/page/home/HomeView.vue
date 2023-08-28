@@ -3,7 +3,6 @@
         <v-row no-gutters class="bg-img-1 rounded-xl no-select" align="center" :style="isColum ? '' : 'min-height:760px;'">
             <v-col cols="12">
                 <v-row no-gutters justify="center" class="text-h3 mt-10 font-weight-bold"> 观音 · 听时 </v-row>
-
                 <v-row no-gutters justify="center" class="text-h6 my-10 font-weight-regular"> 全球最大的坂本龙一作品回顾展 </v-row>
 
                 <template v-if="!isColum">
